@@ -33,6 +33,38 @@ export const Home = () => {
     }
   }, [pasteId, pastes, setSearchParams]);
 
+  	const sharePaste= async (p)=>
+{
+     const Url = `${window.location.origin}/?pasteId=${p.id}`
+	 if(navigator.share)
+	 {
+		try {
+			await navigator.share(
+				{
+                    title:p.title||'shared paste',
+					text:p.data,
+					url:Url
+				}
+			);
+			toast.success("shared successfully")
+		}
+		catch(error)
+		{
+			if(error.name!=='AbortError')
+			{
+				await copyFromClipboard(Url);
+				toast.success("link copied to clipboard successfully")
+			}
+			
+		}
+	 }else
+	 {
+		   await copyFromClipboard(Url);
+    toast.success('Link copied to clipboard');
+	 }
+}
+
+
   const reset = () => {
     dispatch(resetPaste());
     setTitleText('');
@@ -159,7 +191,13 @@ export const Home = () => {
                      <NavLink to={`/Pastes/Pastes/?pasteId=${p.id}`} aria-label="View paste" className="text-gray-600 hover:text-gray-800">
 											<IoEyeSharp />
 										</NavLink>
-                    <CiShare1 />
+                  	<button 
+                      onClick={() => sharePaste(p)} 
+                      aria-label="Share" 
+                      className="text-gray-600 hover:text-gray-800"
+                    >
+                      <CiShare1 />
+                    </button>
                     </div>
                   </div>
 
