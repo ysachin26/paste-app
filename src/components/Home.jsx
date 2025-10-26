@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
 import { IoIosAdd } from "react-icons/io";
-
+import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
 export const Home = () => {
   const [inputTitle, setTitleText] = useState('');
   const [value, setValue] = useState('');
@@ -151,11 +151,11 @@ export const Home = () => {
                         <MdDelete />
                       </button>
                       <button onClick={() => copyFromClipboard(p.data)} aria-label="Copy" className="text-gray-600">
-                        copy
+                      <IoCopyOutline />
                       </button>
-                      <NavLink to={`Pastes/?pasteId=${p.id}`} aria-label="View" className="text-gray-600">
-                        view
-                      </NavLink>
+                     <NavLink to={`/Pastes/Pastes/?pasteId=${p.id}`} aria-label="View paste" className="text-gray-600 hover:text-gray-800">
+											<IoEyeSharp />
+										</NavLink>
                     </div>
                   </div>
 
