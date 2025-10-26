@@ -9,6 +9,9 @@ import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
 import { IoIosAdd } from "react-icons/io";
 import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
+import { CiShare1 } from "react-icons/ci";
+
+
 export const Home = () => {
   const [inputTitle, setTitleText] = useState('');
   const [value, setValue] = useState('');
@@ -156,6 +159,7 @@ export const Home = () => {
                      <NavLink to={`/Pastes/Pastes/?pasteId=${p.id}`} aria-label="View paste" className="text-gray-600 hover:text-gray-800">
 											<IoEyeSharp />
 										</NavLink>
+                    <CiShare1 />
                     </div>
                   </div>
 

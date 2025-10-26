@@ -5,6 +5,7 @@ import { FaRegEdit } from 'react-icons/fa';
 import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
+import { CiShare1 } from "react-icons/ci";
 
 const copyFromClipboard = async (text) => {
 	// small guard and user feedback
@@ -20,6 +21,37 @@ const copyFromClipboard = async (text) => {
 	}
 };
 
+	const sharePaste= async (p)=>
+{
+     const Url = `${window.location.origin}/?pasteId=${p.id}`
+	 if(navigator.share)
+	 {
+		try {
+			await navigator.share(
+				{
+                    title:p.title||'shared paste',
+					text:p.data,
+					url:Url
+				}
+			);
+			toast.success("shared successfully")
+		}
+		catch(error)
+		{
+			if(error.name!=='AbortError')
+			{
+				await copyFromClipboard(Url);
+				toast.success("link copied to clipboard successfully")
+			}
+			
+		}
+	 }else
+	 {
+		   await copyFromClipboard(Url);
+    toast.success('Link copied to clipboard');
+	 }
+}
+
 export const Pastes = () => {
 	const { pastes } = useSelector((state) => state.paste);
 	const dispatch = useDispatch();
@@ -27,6 +59,7 @@ export const Pastes = () => {
 	const deleteFromPaste = (id) => {
 		dispatch(removePaste(id));
 	};
+
 
 	return (
 		<div className="p-4">
@@ -52,6 +85,14 @@ export const Pastes = () => {
 										<NavLink to={`Pastes/?pasteId=${p.id}`} aria-label="View paste" className="text-gray-600 hover:text-gray-800">
 											<IoEyeSharp />
 										</NavLink>
+
+										<button 
+  onClick={() => sharePaste(p)} 
+  aria-label="Share" 
+  className="text-gray-600 hover:text-gray-800"
+>
+  <CiShare1 />
+</button>
 									</div>
 								</div>
 
