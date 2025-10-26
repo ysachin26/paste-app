@@ -62,8 +62,12 @@ export const Pastes = () => {
 
 
 	return (
+		
 		<div className="p-4">
-		 
+		 <div className='flex rounded-md  h-20 justify-center item-center '>
+			 
+			<input className='rounded-md w-200 mb-10 border-2 ml-2' placeholder='    search your pastes...' type="text" size={50}/>
+		 </div>
 			<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 				{pastes.length > 0 ? (
 					pastes.map((p) => (
