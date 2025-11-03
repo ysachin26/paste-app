@@ -21,23 +21,6 @@ A modern, minimal **NoteX** built using **React + JavaScript** to practice core 
 4. LocalStorage API
 <br>
 
-## 📂 Folder Structure
-note-maker/
-│
-├── src/
-│ ├── components/
-│ ├── pages/
-│ ├── utils/
-│ ├── hooks/
-│ └── App.jsx
-│
-├── public/
-├── .gitignore
-├── LICENSE
-├── package.json
-└── README.md
- 
-
 ## ⚙️ Setup Instructions
 ```bash
 # Clone this repository
@@ -54,16 +37,9 @@ npm run dev
 
 
 📜 License
+This project is licensed under the MIT License.
+ 
+#👨‍💻 Author  
+Sachin Yadav 
+📧tocontactsy@gmail.com
 
-This project is licensed under the [MIT License](LICENSE).<br>
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-ysachin26-blue?logo=linkedin)](https://linkedin.com/in/ysachin26)
-
-
-.
-## 👨‍💻 Author  
-**Sachin Yadav**  
-
-📧 [tocontactsy@gmail.com](mailto:tocontactsy@gmail.com)  
-🔗 [LinkedIn](https://linkedin.com/in/ysachin26)
