@@ -6,6 +6,7 @@ import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
 import { CiShare1 } from "react-icons/ci";
+import { useMemo, useState } from 'react';
 
 const copyFromClipboard = async (text) => {
 	// small guard and user feedback
@@ -21,59 +22,69 @@ const copyFromClipboard = async (text) => {
 	}
 };
 
-	const sharePaste= async (p)=>
-{
-     const Url = `${window.location.origin}/?pasteId=${p.id}`
-	 if(navigator.share)
-	 {
+const sharePaste = async (p) => {
+	const Url = `${window.location.origin}/?pasteId=${p.id}`
+	if (navigator.share) {
 		try {
 			await navigator.share(
 				{
-                    title:p.title||'shared paste',
-					text:p.data,
-					url:Url
+					title: p.title || 'shared paste',
+					text: p.data,
+					url: Url
 				}
 			);
 			toast.success("shared successfully")
 		}
-		catch(error)
-		{
-			if(error.name!=='AbortError')
-			{
+		catch (error) {
+			if (error.name !== 'AbortError') {
 				await copyFromClipboard(Url);
 				toast.success("link copied to clipboard successfully")
 			}
-			
+
 		}
-	 }else
-	 {
-		   await copyFromClipboard(Url);
-    toast.success('Link copied to clipboard');
-	 }
+	} else {
+		await copyFromClipboard(Url);
+		toast.success('Link copied to clipboard');
+	}
 }
 
 export const Pastes = () => {
 	const { pastes } = useSelector((state) => state.paste);
 	const dispatch = useDispatch();
+	const [searchValue, setSearchValue] = useState('');
+   
+	const filteredData = useMemo(() => {
+    if (!searchValue.trim()) return pastes;
+    return pastes.filter(item =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [searchValue, pastes]);
 
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  
 	const deleteFromPaste = (id) => {
 		dispatch(removePaste(id));
 	};
-
-
 	return (
-		
+
 		<div className="p-4">
-		 <div className='flex rounded-md  h-20 justify-center item-center '>
-			 
-			<input className='rounded-md w-200 mb-10 border-2 ml-2' placeholder='    search your pastes...' type="text" size={50}/>
-		 </div>
+			<div className='flex rounded-md  h-20 justify-center item-center '>
+
+				<input 
+				className='rounded-md w-200 mb-10 border-2 ml-2' 
+				value={searchValue} 
+				 onChange={handleSearch}
+				placeholder='    search your pastes...' type="text" size={50} />
+			</div>
 			<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-				{pastes.length > 0 ? (
-					pastes.map((p) => (
+				{filteredData.length > 0 ? (
+					filteredData.map((p) => (
 						<div key={p.id} className="flex justify-center">
-						 <div className="w-full max-w-xl border rounded-lg shadow-sm bg-white overflow-hidden flex flex-col">
-						
+							<div className="w-full max-w-xl border rounded-lg shadow-sm bg-white overflow-hidden flex flex-col">
+
 								<div className="flex items-center justify-between px-4 py-3 border-b">
 									<h3 className="text-lg font-medium truncate">{p.title || 'Untitled'}</h3>
 									<div className="flex items-center gap-2">
@@ -86,27 +97,27 @@ export const Pastes = () => {
 										<button onClick={() => copyFromClipboard(p.data)} aria-label="Copy paste" className="text-gray-600 hover:text-gray-800">
 											<IoCopyOutline />
 										</button>
-										
 
-										<button 
-  onClick={() => sharePaste(p)} 
-  aria-label="Share" 
-  className="text-gray-600 hover:text-gray-800"
->
-  <CiShare1 />
-</button>
-<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
+
+										<button
+											onClick={() => sharePaste(p)}
+											aria-label="Share"
+											className="text-gray-600 hover:text-gray-800"
+										>
+											<CiShare1 />
+										</button>
+										<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
 											<MdDelete />
 										</button>
 									</div>
 								</div>
 
-						 
+
 								<div className="px-4 py-3">
 									<pre className="max-h-40 overflow-auto whitespace-pre-wrap break-words text-sm">{p.data}</pre>
 								</div>
 
-					 
+
 								<div className="px-4 py-2 border-t">
 									<small className="text-xs text-gray-500">{p.createAt}</small>
 								</div>
