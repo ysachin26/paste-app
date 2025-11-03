@@ -12,9 +12,16 @@ export const pasteSlice = createSlice({
   initialState,
   reducers: {
    addToPaste: (state, action) => {
-      state.pastes.push(action.payload);
+    const { data}= action.payload;
+    if(data==='')
+    {
+       toast.error('Empty Note Cannot Be Created')
+    }else{
+state.pastes.push(action.payload);
 localStorage.setItem('pastes', JSON.stringify(state.pastes));
 toast.success('Successfully toasted!')
+    }
+      
 
     },
  updateToPaste: (state, action) => {

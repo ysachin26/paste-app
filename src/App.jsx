@@ -1,34 +1,57 @@
 import React from 'react'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import {Navbar} from './components/Navbar'
-import {Pastes} from './components/Pastes'
-import {ViewPastes} from './components/ViewPastes'
+import { Navbar } from './components/Navbar'
+import { Pastes } from './components/Notes'
+import { ViewPastes } from './components/ViewPastes'
 import { Home } from './components/Home'
 import { Toaster } from 'react-hot-toast';
+import Archieve from './components/Archieve';
+import Important from './components/Important';
+import Bin from './components/Bin';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <div>
-      <Navbar/>
-      <Home/>
+      <Navbar />
+      <Home />
     </div>,
   },
 
-   {
-    path: "/pastes",
+  {
+    path: "/notes",
     element: <div>
-      <Navbar/>
-      <Pastes/>
+      <Navbar />
+      <Pastes />
     </div>,
   },
-
-   {
-    path: "/pastes/:id",
+  {
+    path: "/Archieve",
     element: <div>
-      <Navbar/>
-     <ViewPastes/>
+      <Navbar />
+      <Archieve />
+    </div>,
+  },
+  {
+    path: "/important",
+    element: <div>
+      <Navbar />
+      <Important />
+    </div>,
+  },
+  {
+    path: "/Bin",
+    element: <div>
+      <Navbar />
+      <Bin />
+    </div>,
+  },
+  {
+    path: "/notes/:id",
+    element: <div>
+      <Navbar />
+      <ViewPastes />
     </div>,
   },
 ]);
@@ -36,12 +59,12 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <div>
-        <RouterProvider router={router} />
-<Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
-</div>
+      <RouterProvider router={router} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+    </div>
   )
 }
 
