@@ -189,7 +189,7 @@ export const Home = () => {
               <div key={p.id} className="flex justify-center">
                 <div className="w-full max-w-xl border rounded-lg bg-white flex flex-col">
 
-                  <div className="flex items-center justify-between px-4 py-3 border-b">
+                  <div className="flex items-center justify-between px-4 py-3 border-b gap-5">
                     <h3 className="text-md font-medium truncate">{p.title || 'Untitled'}</h3>
                     <div className="flex items-center gap-2">
                       <button onClick={() => editMode(p.id)} aria-label="Edit" className="text-gray-600">
@@ -209,9 +209,7 @@ export const Home = () => {
                       >
                         <CiShare1 />
                       </button>
-                      <button onClick={() => deletePaste(p.id)} aria-label="Delete" className="text-red-600">
-                        <MdDelete />
-                      </button>
+
                     </div>
                   </div>
 
@@ -221,8 +219,24 @@ export const Home = () => {
                   </div>
 
 
-                  <div className="px-4 py-2 border-t">
-                    <small className="text-xs text-gray-500">{p.createAt}</small>
+                  <div className="px-4 py-2 border-t flex gap-2 justify-between ">
+                    <div className="px-4 py-2  flex gap-2  ">
+                      <span class="material-symbols-outlined">
+                        calendar_clock
+                      </span>
+                      <span>
+                        <small className="text-xs text-gray-500">	{new Date(p.createAt).toLocaleDateString('en-GB', {
+                          day: 'numeric', month: 'long', year: 'numeric'
+                        })
+                        }</small>
+                      </span>
+                    </div>
+                    <div className="px-4 py-2  flex gap-2  justify-evenly">
+                      <button onClick={() => deletePaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
+                        <MdDelete />
+                      </button>
+                    </div>
+
                   </div>
                 </div>
               </div>

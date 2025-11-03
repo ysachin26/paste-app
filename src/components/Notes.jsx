@@ -52,19 +52,19 @@ export const Pastes = () => {
 	const { pastes } = useSelector((state) => state.paste);
 	const dispatch = useDispatch();
 	const [searchValue, setSearchValue] = useState('');
-   
+
 	const filteredData = useMemo(() => {
-    if (!searchValue.trim()) return pastes;
-    return pastes.filter(item =>
-      item.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  }, [searchValue, pastes]);
+		if (!searchValue.trim()) return pastes;
+		return pastes.filter(item =>
+			item.title.toLowerCase().includes(searchValue.toLowerCase())
+		);
+	}, [searchValue, pastes]);
 
-  const handleSearch = (e) => {
-    setSearchValue(e.target.value);
-  };
+	const handleSearch = (e) => {
+		setSearchValue(e.target.value);
+	};
 
-  
+
 	const deleteFromPaste = (id) => {
 		dispatch(removePaste(id));
 	};
@@ -73,19 +73,19 @@ export const Pastes = () => {
 		<div className="p-4">
 			<div className='flex rounded-md  h-20 justify-center item-center '>
 
-				<input 
-				className='rounded-md w-200 mb-10 border-2 ml-2' 
-				value={searchValue} 
-				 onChange={handleSearch}
-				placeholder='    search your pastes...' type="text" size={50} />
+				<input
+					className='rounded-md w-200 mb-10 border-2 ml-2'
+					value={searchValue}
+					onChange={handleSearch}
+					placeholder='    search your pastes...' type="text" size={50} />
 			</div>
-			<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+			<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
 				{filteredData.length > 0 ? (
 					filteredData.map((p) => (
 						<div key={p.id} className="flex justify-center">
 							<div className="w-full max-w-xl border rounded-lg shadow-sm bg-white overflow-hidden flex flex-col">
 
-								<div className="flex items-center justify-between px-4 py-3 border-b">
+								<div className="flex items-center justify-between px-4 py-3 border-b gap-5">
 									<h3 className="text-lg font-medium truncate">{p.title || 'Untitled'}</h3>
 									<div className="flex items-center gap-2">
 										<NavLink to={`/?pasteId=${p.id}`} aria-label="Edit paste" className="text-gray-600 hover:text-gray-800">
@@ -106,9 +106,7 @@ export const Pastes = () => {
 										>
 											<CiShare1 />
 										</button>
-										<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
-											<MdDelete />
-										</button>
+
 									</div>
 								</div>
 
@@ -118,8 +116,24 @@ export const Pastes = () => {
 								</div>
 
 
-								<div className="px-4 py-2 border-t">
-									<small className="text-xs text-gray-500">{p.createAt}</small>
+								<div className="px-4 py-2 border-t flex gap-2 justify-between ">
+									<div className="px-4 py-2  flex gap-2  ">
+										<span class="material-symbols-outlined">
+											calendar_clock
+										</span>
+										<span>
+											<small className="text-xs text-gray-500">	{new Date(p.createAt).toLocaleDateString('en-GB', {
+												day: 'numeric', month: 'long', year: 'numeric'
+											})
+											}</small>
+										</span>
+									</div>
+									<div className="px-4 py-2  flex gap-2  justify-evenly">
+										<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
+											<MdDelete />
+										</button>
+									</div>
+
 								</div>
 							</div>
 						</div>
