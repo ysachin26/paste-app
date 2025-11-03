@@ -12,16 +12,14 @@ A modern, minimal **NoteX** built using **React + JavaScript** to practice core 
 6. Color labels & sorting
 7. Auto-save while typing
 
----
+<br>
 
 ## Tech Stack
-1.React.js (Vite or CRA)
-2.JavaScript (ES6+)
-3.Tailwind CSS / CSS Modules
+1.React.js <br>
+2.JavaScript <br>
+3.Tailwind CSS <br>
 4. LocalStorage API
-
-
----
+<br>
 
 ## 📂 Folder Structure
 note-maker/
@@ -57,11 +55,15 @@ npm run dev
 
 📜 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).<br>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-ysachin26-blue?logo=linkedin)](https://linkedin.com/in/ysachin26)
+
 
 .
-
-## 👨‍💻 Author
+## 👨‍💻 Author  
 **Sachin Yadav**  
+
 📧 [tocontactsy@gmail.com](mailto:tocontactsy@gmail.com)  
 🔗 [LinkedIn](https://linkedin.com/in/ysachin26)
