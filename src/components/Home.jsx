@@ -182,15 +182,13 @@ export const Home = () => {
                       <button onClick={() => editMode(p.id)} aria-label="Edit" className="text-gray-600">
                         <FaRegEdit />
                       </button>
-                      <button onClick={() => deletePaste(p.id)} aria-label="Delete" className="text-red-600">
-                        <MdDelete />
-                      </button>
+                      <NavLink to={`/Pastes/Pastes/?pasteId=${p.id}`} aria-label="View paste" className="text-gray-600 hover:text-gray-800">
+											<IoEyeSharp />
+										</NavLink>
                       <button onClick={() => copyFromClipboard(p.data)} aria-label="Copy" className="text-gray-600">
                       <IoCopyOutline />
                       </button>
-                     <NavLink to={`/Pastes/Pastes/?pasteId=${p.id}`} aria-label="View paste" className="text-gray-600 hover:text-gray-800">
-											<IoEyeSharp />
-										</NavLink>
+                    
                   	<button 
                       onClick={() => sharePaste(p)} 
                       aria-label="Share" 
@@ -198,6 +196,9 @@ export const Home = () => {
                     >
                       <CiShare1 />
                     </button>
+                     <button onClick={() => deletePaste(p.id)} aria-label="Delete" className="text-red-600">
+                        <MdDelete />
+                      </button>
                     </div>
                   </div>
 

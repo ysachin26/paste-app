@@ -80,15 +80,13 @@ export const Pastes = () => {
 										<NavLink to={`/?pasteId=${p.id}`} aria-label="Edit paste" className="text-gray-600 hover:text-gray-800">
 											<FaRegEdit />
 										</NavLink>
-										<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
-											<MdDelete />
-										</button>
-										<button onClick={() => copyFromClipboard(p.data)} aria-label="Copy paste" className="text-gray-600 hover:text-gray-800">
-											<IoCopyOutline />
-										</button>
 										<NavLink to={`Pastes/?pasteId=${p.id}`} aria-label="View paste" className="text-gray-600 hover:text-gray-800">
 											<IoEyeSharp />
 										</NavLink>
+										<button onClick={() => copyFromClipboard(p.data)} aria-label="Copy paste" className="text-gray-600 hover:text-gray-800">
+											<IoCopyOutline />
+										</button>
+										
 
 										<button 
   onClick={() => sharePaste(p)} 
@@ -97,6 +95,9 @@ export const Pastes = () => {
 >
   <CiShare1 />
 </button>
+<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
+											<MdDelete />
+										</button>
 									</div>
 								</div>
 
