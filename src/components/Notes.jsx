@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { removePaste ,pinnedCard} from '../redux/features/pasteSlice';
+import { removePaste, pinnedCard ,archievePaste} from '../redux/features/pasteSlice';
 import { FaRegEdit } from 'react-icons/fa';
 import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
@@ -9,6 +9,8 @@ import { CiShare1 } from "react-icons/ci";
 import { useMemo, useState } from 'react';
 import { BsPin } from "react-icons/bs";
 import { BsPinFill } from "react-icons/bs";
+import { MdArchive } from "react-icons/md";
+
 
 const copyFromClipboard = async (text) => {
 	// small guard and user feedback
@@ -55,31 +57,32 @@ export const Pastes = () => {
 	const { pastes } = useSelector((state) => state.paste);
 	const dispatch = useDispatch();
 	const [searchValue, setSearchValue] = useState('');
- 
+
 	const filteredData = useMemo(() => {
 		const data = [...pastes];
 
+		//filtering my data
 		let searchData = data;
-		if (!searchValue.trim()) 
-			{
-				searchData =  data;
-			}
-			else
-			{
-		    searchData =  data.filter(item =>
-			item.title.toLowerCase().includes(searchValue.toLowerCase())
-		);}
+		if (!searchValue.trim()) {
+			searchData = data;
+		}
+		else {
+			searchData = data.filter(item =>
+				item.title.toLowerCase().includes(searchValue.toLowerCase())
+			);
+		}
 
-		 
-		searchData.sort((a,b)=>
-		{
-			return b.isPinned-a.isPinned;
+		//applying sorting on filterd data - this is the standard method becase applying sorting on unfiltered data is not optimised 
+		//it is like performing sorting on 100 elements and rendering only 5 because of filtering
+
+		searchData.sort((a, b) => {
+			return b.isPinned - a.isPinned;
 		})
 
 		return searchData;
 	}, [searchValue, pastes]);
 
-	 
+
 	const handleSearch = (e) => {
 		setSearchValue(e.target.value);
 	};
@@ -89,10 +92,15 @@ export const Pastes = () => {
 		dispatch(removePaste(id));
 	};
 
-	 
+
 	const pinItem = (id) => {
-		 
-		 dispatch(pinnedCard(id))
+
+		dispatch(pinnedCard(id))
+	}
+
+	const makePasteArchieve =(id)=>
+	{ 
+		dispatch(archievePaste(id));
 	}
 
 	return (
@@ -134,21 +142,21 @@ export const Pastes = () => {
 										</button>
 
 										{
-											p.isPinned ? 
-											<button 
-											onClick={() => pinItem(p.id)} 
-											aria-label="Copy paste" 
-											className="text-gray-600 hover:text-gray-800">
-											 <BsPinFill />  
-											</button>: 
-											<button onClick={() => pinItem(p.id)}
-											aria-label="Copy paste" 
-											className="text-gray-600 hover:text-gray-800">
-											<BsPin /> 
-											</button>
-											 
+											p.isPinned ?
+												<button
+													onClick={() => pinItem(p.id)}
+													aria-label="Copy paste"
+													className="text-red-600   ">
+													<BsPinFill />
+												</button> :
+												<button onClick={() => pinItem(p.id)}
+													aria-label="Copy paste"
+													className="text-gray-600 hover:text-gray-800">
+													<BsPin />
+												</button>
+
 										}
-										
+
 
 
 									</div>
@@ -175,6 +183,12 @@ export const Pastes = () => {
 									<div className="px-4 py-2  flex gap-2  justify-evenly">
 										<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
 											<MdDelete />
+										</button>
+
+										<button onClick={()=>makePasteArchieve(p.id)}
+
+											className="text-blue-600 hover:text-grey-800">
+											<MdArchive />
 										</button>
 									</div>
 
