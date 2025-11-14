@@ -78,9 +78,11 @@ export const pasteSlice = createSlice({
          if (paste) {
             if (paste.isPinned === true) {
                paste.isPinned = false;
+               toast.success('unpinned')
             }
             else {
                paste.isPinned = true;
+               toast.success("pinned")
             }
 
             setlocalStorage(state.pastes)
