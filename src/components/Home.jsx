@@ -104,6 +104,7 @@ export const Home = () => {
     const paste = {
       id: pasteId || uuidv4(),
       title: inputTitle,
+      isPinned:false,
       data: value,
       createAt: new Date().toISOString(),
     };
@@ -182,7 +183,7 @@ export const Home = () => {
       </div>
 
       <div>
-        <h4 className="text-lg font-semibold mb-3">Recent Pastes</h4>
+        <h4 className="text-lg font-semibold mb-3">Recent Notes</h4>
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {slicedArr.length > 0 ? (
             slicedArr.map((p) => (
@@ -242,7 +243,7 @@ export const Home = () => {
               </div>
             ))
           ) : (
-            <p className="text-gray-600">No pastes available</p>
+            <p className="text-gray-600">No Notes available</p>
           )}
         </div>
 

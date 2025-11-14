@@ -41,6 +41,25 @@ toast.success('Successfully toasted!')
     localStorage.removeItem("pastes")
      toast.success('Paste reset successfully')
    },
+   pinnedCard:(state,action)=>
+   {
+       
+      const id = action.payload;
+      const paste = state.pastes.find((p)=>p.id===id)
+      
+     if (paste) {
+    if(paste.isPinned===true)
+    {
+      paste.isPinned= false;
+    }
+    else{
+       paste.isPinned= true;
+    }
+    
+     localStorage.setItem("pastes", JSON.stringify(state.pastes));
+  }
+
+   },
    removePaste:(state,action)=>
    {
 
@@ -58,6 +77,6 @@ toast.success('Successfully toasted!')
   },
 })
  console.log(pasteSlice)
-export const {addToPaste,updateToPaste,removePaste,resetPaste} = pasteSlice.actions;
+export const {addToPaste,updateToPaste,removePaste,resetPaste,pinnedCard} = pasteSlice.actions;
 export default pasteSlice.reducer;
  

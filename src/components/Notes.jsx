@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { removePaste } from '../redux/features/pasteSlice';
+import { removePaste ,pinnedCard} from '../redux/features/pasteSlice';
 import { FaRegEdit } from 'react-icons/fa';
 import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
 import { CiShare1 } from "react-icons/ci";
 import { useMemo, useState } from 'react';
+import { BsPin } from "react-icons/bs";
+import { BsPinFill } from "react-icons/bs";
 
 const copyFromClipboard = async (text) => {
 	// small guard and user feedback
@@ -49,17 +51,35 @@ const sharePaste = async (p) => {
 }
 
 export const Pastes = () => {
+
 	const { pastes } = useSelector((state) => state.paste);
 	const dispatch = useDispatch();
 	const [searchValue, setSearchValue] = useState('');
-
+ 
 	const filteredData = useMemo(() => {
-		if (!searchValue.trim()) return pastes;
-		return pastes.filter(item =>
+		const data = [...pastes];
+
+		let searchData = data;
+		if (!searchValue.trim()) 
+			{
+				searchData =  data;
+			}
+			else
+			{
+		    searchData =  data.filter(item =>
 			item.title.toLowerCase().includes(searchValue.toLowerCase())
-		);
+		);}
+
+		 
+		searchData.sort((a,b)=>
+		{
+			return b.isPinned-a.isPinned;
+		})
+
+		return searchData;
 	}, [searchValue, pastes]);
 
+	 
 	const handleSearch = (e) => {
 		setSearchValue(e.target.value);
 	};
@@ -68,6 +88,13 @@ export const Pastes = () => {
 	const deleteFromPaste = (id) => {
 		dispatch(removePaste(id));
 	};
+
+	 
+	const pinItem = (id) => {
+		 
+		 dispatch(pinnedCard(id))
+	}
+
 	return (
 
 		<div className="p-4">
@@ -98,7 +125,6 @@ export const Pastes = () => {
 											<IoCopyOutline />
 										</button>
 
-
 										<button
 											onClick={() => sharePaste(p)}
 											aria-label="Share"
@@ -106,6 +132,24 @@ export const Pastes = () => {
 										>
 											<CiShare1 />
 										</button>
+
+										{
+											p.isPinned ? 
+											<button 
+											onClick={() => pinItem(p.id)} 
+											aria-label="Copy paste" 
+											className="text-gray-600 hover:text-gray-800">
+											 <BsPinFill />  
+											</button>: 
+											<button onClick={() => pinItem(p.id)}
+											aria-label="Copy paste" 
+											className="text-gray-600 hover:text-gray-800">
+											<BsPin /> 
+											</button>
+											 
+										}
+										
+
 
 									</div>
 								</div>
@@ -118,7 +162,7 @@ export const Pastes = () => {
 
 								<div className="px-4 py-2 border-t flex gap-2 justify-between ">
 									<div className="px-4 py-2  flex gap-2  ">
-										<span class="material-symbols-outlined">
+										<span className="material-symbols-outlined">
 											calendar_clock
 										</span>
 										<span>
@@ -139,7 +183,7 @@ export const Pastes = () => {
 						</div>
 					))
 				) : (
-					<p className="text-center text-gray-600">No pastes available</p>
+					<p className="text-center text-gray-600">No Notes available</p>
 				)}
 			</div>
 		</div>
