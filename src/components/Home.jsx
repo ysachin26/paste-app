@@ -222,7 +222,7 @@ export const Home = () => {
 
                   <div className="px-4 py-2 border-t flex gap-2 justify-between ">
                     <div className="px-4 py-2  flex gap-2  ">
-                      <span class="material-symbols-outlined">
+                      <span className="material-symbols-outlined">
                         calendar_clock
                       </span>
                       <span>

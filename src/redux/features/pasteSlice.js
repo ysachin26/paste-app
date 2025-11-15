@@ -97,11 +97,18 @@ export const pasteSlice = createSlice({
          }
 
       },
-      removePaste: (state, action) => {
-         const id = action.payload; // pass just id
-         state.pastes = state.pastes.filter((item) => item.id !== id);
-         setlocalStorage(state.pastes, 'pastes')
-         toast.success('deleted')
+       
+       removePaste: (state, action) => {
+         const id = action.payload;
+         const paste = state.pastes.find((item) => item.id === id);
+
+         if (paste) {
+            state.bin.push(paste); // push the object, not an array
+            state.pastes = state.pastes.filter((item) => item.id != id)
+            setlocalStorage(state.pastes, 'pastes')
+            setlocalStorage(state.bin, 'bin');
+            toast.success('Moved in bin')
+         }
       },
       deleteArchivePaste: (state, action) => {
          const id = action.payload;

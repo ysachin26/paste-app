@@ -96,7 +96,7 @@ export const Important = () => {
           ))}
         </div>
       ) : (
-        <p className="text-gray-600 text-center">No archived notes</p>
+        <p className="text-gray-600 text-center">No important notes</p>
       )}
     </div>
   );

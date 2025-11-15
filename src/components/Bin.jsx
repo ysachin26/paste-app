@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteItem } from '../redux/features/pasteSlice';
-import { FaRedo } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { IoCopyOutline } from 'react-icons/io5';
 import toast from 'react-hot-toast';
@@ -87,7 +86,7 @@ export const Bin = () => {
           ))}
         </div>
       ) : (
-        <p className="text-gray-600 text-center">No archived notes</p>
+        <p className="text-gray-600 text-center">Empty Bin</p>
       )}
     </div>
   );
