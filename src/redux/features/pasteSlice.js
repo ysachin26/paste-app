@@ -9,6 +9,10 @@ const initialState = {
    archieve: localStorage.getItem('archive')
       ? JSON.parse(localStorage.getItem('archive'))
       : [],
+
+       important: localStorage.getItem('important')
+      ? JSON.parse(localStorage.getItem('important'))
+      : [],
 }
 
 export const pasteSlice = createSlice({
@@ -85,9 +89,7 @@ export const pasteSlice = createSlice({
                toast.success("pinned")
             }
 
-            setlocalStorage(state.pastes)
-
-
+            setlocalStorage(state.pastes);
          }
 
       },
@@ -104,8 +106,38 @@ export const pasteSlice = createSlice({
          toast.success('deleted')
 
       },
+        importantNotes: (state, action) => {
+         const id = action.payload;
+         const paste = state.pastes.find((p) => p.id === id);
+
+         if (paste) {
+            state.important.push(paste);
+            state.pastes = state.pastes.filter((item) => item.id != id)
+            setlocalStorage(state.pastes, 'pastes')
+            setlocalStorage(state.important, 'important');
+            toast.success('marked important')
+         }
+      },
+      unimportantNotes: (state, action) => {
+         const id = action.payload;
+         const paste = state.important.find((item) => item.id === id)
+         if (paste) {
+            state.pastes.push(paste);
+            state.important = state.important.filter((item) => item.id !== id);
+            setlocalStorage(state.pastes, 'pastes')
+            setlocalStorage(state.important, 'important');
+            toast.success('unmarked important');
+         }
+      },
+      deleteImportant:(state,action)=>
+      {
+         const id = action.payload;
+         state.important = state.important.filter((item) => item.id !== id);
+         setlocalStorage(state.important, 'important')
+         toast.success('deleted')
+      },
    },
 })
 console.log(pasteSlice)
-export const { addToPaste, unarchivePaste, deleteArchivePaste, updateToPaste, removePaste, resetPaste, pinnedCard, archievePaste } = pasteSlice.actions;
+export const { addToPaste, unarchivePaste,deleteImportant, deleteArchivePaste,importantNotes,unimportantNotes, updateToPaste, removePaste, resetPaste, pinnedCard, archievePaste } = pasteSlice.actions;
 export default pasteSlice.reducer;

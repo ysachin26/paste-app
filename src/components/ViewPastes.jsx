@@ -35,8 +35,8 @@ export const ViewPastes = () => {
 
         {/* body */}
         <div className="px-6 py-5 relative">
-          <pre className="whitespace-pre-wrap break-words font-mono text-sm max-h-[60vh] overflow-auto">{currentPaste?.data}</pre>
-          <button onClick={() => copyFromNote(currentPaste?.data)} aria-label="Copy paste" className=" absolute top-5 right-5 text-gray-600 hover:text-gray-800 absolute top-5 right-5">
+          <pre className="whitespace-pre-wrap break-words font-mono text-sm max-h-[60vh] overflow-auto mr-2">{currentPaste?.data}</pre>
+          <button onClick={() => copyFromNote(currentPaste?.data)} aria-label="Copy paste" className=" absolute top-5 right-5 text-gray-600 hover:text-gray-800 absolute top-5 right-5 ">
             <IoCopyOutline />
           </button>
         </div>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { removePaste, pinnedCard ,archievePaste} from '../redux/features/pasteSlice';
+import { removePaste,importantNotes, pinnedCard ,archievePaste} from '../redux/features/pasteSlice';
 import { FaRegEdit } from 'react-icons/fa';
 import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
@@ -10,7 +10,7 @@ import { useMemo, useState } from 'react';
 import { BsPin } from "react-icons/bs";
 import { BsPinFill } from "react-icons/bs";
 import { MdArchive } from "react-icons/md";
-
+import { CiStar } from "react-icons/ci";
 
 const copyFromClipboard = async (text) => {
 	// small guard and user feedback
@@ -103,6 +103,11 @@ export const Pastes = () => {
 		dispatch(archievePaste(id));
 	}
 
+	
+const handleimportantNotes = (id) => {
+    dispatch(importantNotes(id));
+  };
+
 	return (
 
 		<div className="p-4">
@@ -181,7 +186,7 @@ export const Pastes = () => {
 										</span>
 									</div>
 									<div className="px-4 py-2  flex gap-2  justify-evenly">
-										<button onClick={() => deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
+										<button onClick={() =>deleteFromPaste(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
 											<MdDelete />
 										</button>
 
@@ -189,6 +194,9 @@ export const Pastes = () => {
 
 											className="text-blue-600 hover:text-grey-800">
 											<MdArchive />
+										</button>
+										<button onClick={() =>handleimportantNotes(p.id)} aria-label="Delete paste" className="text-red-600 hover:text-red-800">
+											<CiStar />
 										</button>
 									</div>
 
