@@ -24,7 +24,7 @@ export const Important = () => {
   };
 
   const handleunimportantNotes = (id) => {
-    console.log('clicked unimportant')
+ 
     dispatch(unimportantNotes(id));
   };
 

@@ -190,6 +190,6 @@ export const pasteSlice = createSlice({
       },
    },
 })
-console.log(pasteSlice)
+ 
 export const { addToPaste,binImportantItems, binArchiveItems, binItems, deleteItem, unarchivePaste, deleteImportant, deleteArchivePaste, importantNotes, unimportantNotes, updateToPaste, removePaste, resetPaste, pinnedCard, archievePaste } = pasteSlice.actions;
 export default pasteSlice.reducer;
