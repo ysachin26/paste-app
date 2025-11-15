@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { unimportantNotes, deleteImportant } from '../redux/features/pasteSlice';
+import { unimportantNotes, binImportantItems } from '../redux/features/pasteSlice';
 import { FaRedo } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { IoCopyOutline } from 'react-icons/io5';
@@ -29,13 +29,13 @@ export const Important = () => {
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteImportant(id))
+    dispatch(binImportantItems(id))
   }
 
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-6">Archived Notes</h2>
+      <h2 className="text-2xl font-bold mb-6">Important Notes</h2>
 
       {important.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

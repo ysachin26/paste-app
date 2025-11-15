@@ -10,8 +10,12 @@ const initialState = {
       ? JSON.parse(localStorage.getItem('archive'))
       : [],
 
-       important: localStorage.getItem('important')
+   important: localStorage.getItem('important')
       ? JSON.parse(localStorage.getItem('important'))
+      : [],
+
+   bin: localStorage.getItem('bin')
+      ? JSON.parse(localStorage.getItem('bin'))
       : [],
 }
 
@@ -106,7 +110,7 @@ export const pasteSlice = createSlice({
          toast.success('deleted')
 
       },
-        importantNotes: (state, action) => {
+      importantNotes: (state, action) => {
          const id = action.payload;
          const paste = state.pastes.find((p) => p.id === id);
 
@@ -129,15 +133,56 @@ export const pasteSlice = createSlice({
             toast.success('unmarked important');
          }
       },
-      deleteImportant:(state,action)=>
-      {
+      deleteImportant: (state, action) => {
          const id = action.payload;
          state.important = state.important.filter((item) => item.id !== id);
          setlocalStorage(state.important, 'important')
          toast.success('deleted')
       },
+      binItems: (state, action) => {
+         const id = action.payload;
+         const paste = state.pastes.find((p) => p.id === id);
+
+         if (paste) {
+            state.bin.push(paste);
+            state.pastes = state.pastes.filter((item) => item.id != id)
+            setlocalStorage(state.pastes, 'pastes')
+            setlocalStorage(state.bin, 'bin');
+            toast.success('Moved in bin')
+         }
+      },
+      binArchiveItems: (state, action) => {
+         const id = action.payload;
+         const paste = state.archieve.find((p) => p.id === id);
+
+         if (paste) {
+            state.bin.push(paste);
+            state.archieve = state.archieve.filter((item) => item.id != id)
+            setlocalStorage(state.archieve, 'archive')
+            setlocalStorage(state.bin, 'bin');
+            toast.success('Moved in bin')
+         }
+      },
+       binImportantItems: (state, action) => {
+         const id = action.payload;
+         const paste = state.important.find((p) => p.id === id);
+
+         if (paste) {
+            state.bin.push(paste);
+            state.important = state.important.filter((item) => item.id != id)
+            setlocalStorage(state.important, 'important')
+            setlocalStorage(state.bin, 'bin');
+            toast.success('Moved in bin')
+         }
+      },
+      deleteItem: (state, action) => {
+         const id = action.payload;
+         state.bin = state.bin.filter((item) => item.id !== id);
+         setlocalStorage(state.bin, 'bin')
+         toast.success('deleted')
+      },
    },
 })
 console.log(pasteSlice)
-export const { addToPaste, unarchivePaste,deleteImportant, deleteArchivePaste,importantNotes,unimportantNotes, updateToPaste, removePaste, resetPaste, pinnedCard, archievePaste } = pasteSlice.actions;
+export const { addToPaste,binImportantItems, binArchiveItems, binItems, deleteItem, unarchivePaste, deleteImportant, deleteArchivePaste, importantNotes, unimportantNotes, updateToPaste, removePaste, resetPaste, pinnedCard, archievePaste } = pasteSlice.actions;
 export default pasteSlice.reducer;

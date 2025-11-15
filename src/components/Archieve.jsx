@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { unarchivePaste,deleteArchivePaste } from '../redux/features/pasteSlice';
+import { unarchivePaste,binArchiveItems } from '../redux/features/pasteSlice';
 import { FaRedo } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { IoCopyOutline } from 'react-icons/io5';
@@ -27,7 +27,7 @@ export const Archive = () => {
   };
 
 const deleteFromPaste = (id) => {
-    dispatch(deleteArchivePaste(id));
+    dispatch(binArchiveItems(id));
   };
 
 

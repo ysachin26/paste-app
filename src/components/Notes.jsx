@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { removePaste,importantNotes, pinnedCard ,archievePaste} from '../redux/features/pasteSlice';
+import { binItems,importantNotes, pinnedCard ,archievePaste} from '../redux/features/pasteSlice';
 import { FaRegEdit } from 'react-icons/fa';
 import { IoCopyOutline, IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
@@ -89,7 +89,7 @@ export const Pastes = () => {
 
 
 	const deleteFromPaste = (id) => {
-		dispatch(removePaste(id));
+		dispatch(binItems(id));
 	};
 
 
